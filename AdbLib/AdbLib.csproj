@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <Target Name="CopyAdbBinaries" AfterTargets="Build">
+    <ItemGroup>
+      <AdbBinariesPath Include="adb/**" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(AdbBinariesPath)"
+      DestinationFolder="$(OutputPath)platform-tools/adb/"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CleanAll" BeforeTargets="Clean">
+    <RemoveDir Directories="$(OutputPath)" Condition="Exists('$(OutputPath)')" />
+  </Target>
+
+</Project>
